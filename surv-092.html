@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Relatório de Vigilância — SURV-092</title>
+    <style>
+        :root {
+            --bg: #070809;
+            --panel: #0f1416;
+            --accent: #00d084;
+            --danger: #ff4d4d;
+            --muted: #9fdcc8;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background: var(--bg);
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #e8fff7
+        }
+
+        .wrap {
+            max-width: 1100px;
+            margin: 56px auto;
+            padding: 22px;
+        }
+
+        .card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(0, 208, 132, 0.05);
+            padding: 22px;
+            border-radius: 10px;
+            box-shadow: 0 14px 50px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        .stamp {
+            position: absolute;
+            right: 18px;
+            top: 16px;
+            font-weight: 800;
+            color: rgba(255, 120, 120, 0.12);
+            border: 3px solid rgba(255, 120, 120, 0.12);
+            padding: 8px 14px;
+            transform: rotate(-12deg);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 2px 0 6px 0;
+            color: var(--accent);
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 8px rgba(0, 208, 132, 0.07)
+        }
+
+        .meta {
+            color: var(--muted);
+            margin-bottom: 12px;
+            font-size: 0.95rem
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 18px
+        }
+
+        /* VIDEO / THUMB */
+        .video-area {
+            background: rgba(0, 0, 0, 0.35);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 208, 132, 0.04)
+        }
+
+        .video-thumb {
+            width: 100%;
+            height: 420px;
+            background: #000 center/cover no-repeat;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform .2s ease, filter .2s ease;
+        }
+
+        .video-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(0.08) contrast(0.95);
+        }
+
+        .play-btn {
+            position: absolute;
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            background: rgba(0, 208, 132, 0.12);
+            border: 2px solid rgba(0, 208, 132, 0.26);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            color: #eafff2;
+            cursor: pointer;
+            transition: transform .12s ease, filter .12s;
+            z-index: 5;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.06)
+        }
+
+        /* shore glitch effect applied to thumb container */
+        .glitch-frame {
+            animation: glitchFrames 0.9s steps(3) infinite;
+            filter: contrast(1.3) saturate(1.2);
+        }
+
+        @keyframes glitchFrames {
+            0% {
+                transform: translateX(0)
+            }
+
+            20% {
+                transform: translateX(-6px) skewX(-1deg)
+            }
+
+            40% {
+                transform: translateX(6px) skewX(1deg)
+            }
+
+            60% {
+                transform: translateX(-8px) skewX(-2deg)
+            }
+
+            80% {
+                transform: translateX(6px) skewX(1deg)
+            }
+
+            100% {
+                transform: translateX(0)
+            }
+        }
+
+        /* warning overlay / status boxes */
+        .status-box {
+            margin-top: 18px;
+            padding: 12px 14px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        /* sidebar */
+        .side {
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
+
+        .meta-block {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 12px;
+            border-radius: 8px;
+            color: #dfffe9
+        }
+
+        .thumb-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px
+        }
+
+        .thumb-grid img {
+            width: 100%;
+            height: 84px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            filter: contrast(1.05)
+        }
+
+        .btn {
+            background: linear-gradient(180deg, rgba(0, 208, 132, 0.14), rgba(0, 208, 132, 0.06));
+            color: #012;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 208, 132, 0.18);
+            cursor: pointer;
+            font-weight: 700
+        }
+
+        .btn.ghost {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #d8fff0
+        }
+
+        .note {
+            margin-top: 8px;
+            color: #9fe6cf;
+            font-size: 0.9rem
+        }
+
+        /* full-screen transient overlays */
+        .full-overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            transition: opacity .25s ease;
+            color: var(--accent);
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            padding: 24px;
+        }
+
+        /* error screen */
+        .error-screen {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #050405;
+            color: var(--danger);
+            z-index: 10000;
+            font-family: 'Courier New', monospace;
+            flex-direction: column;
+            gap: 12px;
+            padding: 20px;
+        }
+
+        .error-screen h1 {
+            font-size: 2.6rem;
+            margin: 0;
+            letter-spacing: 2px
+        }
+
+        .error-screen p {
+            color: #ffb6b6;
+            margin: 0
+        }
+
+        /* responsive */
+        @media (max-width:980px) {
+            .layout {
+                grid-template-columns: 1fr
+            }
+
+            .video-thumb {
+                height: 320px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="card" id="mainCard" aria-live="polite">
+            <div class="stamp">SIGILOSO</div>
+
+            <h1>Relatório de Vigilância — SURV-092</h1>
+            <div class="meta">Imagens térmicas e gravações de áudio coletadas durante a madrugada.<br>[Arquivo:
+                SURV-092.mp4]</div>
+
+            <div class="layout">
+                <div class="video-area">
+                    <!-- THUMBNAIL -->
+                    <div class="video-thumb" id="videoThumb" role="button" aria-label="Abrir vídeo">
+                        <img src="foto-sus.png" alt="Thumbnail SURV-092 — foto-sus.png">
+                        <div class="play-btn" id="playBtn" title="Reproduzir">►</div>
+                    </div>
+
+                    <div class="status-box" id="statusBox">
+                        Clique em ▶ para reproduzir. Se o arquivo estiver indisponível, a tentativa poderá falhar.
+                    </div>
+                </div>
+
+                <aside class="side" aria-hidden="false">
+                    <div class="meta-block">
+                        <strong>Metadados</strong>
+                        <div style="margin-top:8px; color:#bfffe6">
+                            Código: <strong>SURV-092</strong><br>
+                            Período: 11/10/2025 — 02:00–04:00h<br>
+                            Fonte: Câmeras térmicas / Microfone ambiente<br>
+                            Formato: MP4 (vídeo) • WAV (áudio)
+                        </div>
+                    </div>
+
+                    <div class="meta-block">
+                        <strong>Imagens térmicas</strong>
+                        <div class="thumb-grid" style="margin-top:10px;">
+                            <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder"
+                                alt="">
+                            <img src="https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder"
+                                alt="">
+                            <img src="https://images.unsplash.com/photo-1504868584819-f6f1bdf7a0f6?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder"
+                                alt="">
+                            <img src="https://images.unsplash.com/photo-1549887534-26aa3f3b24ad?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder"
+                                alt="">
+                        </div>
+                    </div>
+
+                    <div class="meta-block">
+                        <strong>Ações</strong>
+                        <div style="margin-top:8px; display:flex; gap:8px;">
+                            <button class="btn" id="downloadBtn">Baixar (restrito)</button>
+                            <a href="arquivo-confidencial.html" class="btn ghost"
+                                style="align-self:center; text-decoration:none;">← Voltar</a>
+                        </div>
+                        <p class="note">Dica: coloque o arquivo <code>videos/SURV-092.mp4</code> localmente para ativar
+                            o player (ou deixe apenas a thumbnail).</p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP RESTRITO -->
+    <div class="full-overlay" id="popupOverlay" style="display:none; opacity:0;">
+        <div
+            style="max-width:560px; background:rgba(10,12,12,0.95); padding:20px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); text-align:center;">
+            <h2 style="margin:0 0 8px 0; color:var(--danger)">Acesso negado</h2>
+            <p style="color:#ffd6d6; margin-bottom:12px;">Download restrito. Credenciais insuficientes.</p>
+            <button class="btn" id="popupClose">Fechar</button>
+        </div>
+    </div>
+
+    <!-- SCRIPT: simula falha e queda -->
+    <script>
+        (function () {
+            const playBtn = document.getElementById('playBtn');
+            const videoThumb = document.getElementById('videoThumb');
+            const statusBox = document.getElementById('statusBox');
+            const popupOverlay = document.getElementById('popupOverlay');
+            const popupClose = document.getElementById('popupClose');
+
+            // small helper to create transient message overlays (centered)
+            function transientMessage(html, ms = 1600) {
+                const el = document.createElement('div');
+                el.className = 'full-overlay';
+                el.style.background = 'rgba(0,0,0,0.85)';
+                el.innerHTML = '<div style="color:var(--accent); font-family:Courier, monospace; text-align:center; padding:18px; border-radius:8px;">' + html + '</div>';
+                document.body.appendChild(el);
+                setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.remove(), 260); }, ms);
+            }
+
+            // sequence when play is clicked
+            playBtn.addEventListener('click', () => {
+                // 1) quick visual feedback
+                videoThumb.classList.add('glitch-frame');
+                statusBox.textContent = 'Tentando conectar ao servidor seguro...';
+
+                // small beep-like effect using WebAudio (optional, soft)
+                try {
+                    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                    const o = ctx.createOscillator();
+                    const g = ctx.createGain();
+                    o.type = 'square';
+                    o.frequency.value = 220;
+                    g.gain.value = 0.0005; // very low volume (cinematic)
+                    o.connect(g); g.connect(ctx.destination);
+                    o.start();
+                    setTimeout(() => { o.stop(); ctx.close(); }, 160);
+                } catch (e) { /* ignore if audio blocked */ }
+
+                // 2) after ~700ms intensify glitch
+                setTimeout(() => {
+                    statusBox.textContent = 'Interferência detectada — tentativa 1 de 3';
+                    // quick flash on thumb
+                    videoThumb.style.filter = 'brightness(1.6) contrast(1.3)';
+                }, 700);
+
+                // 3) spawn several small "red alerts" floating briefly (cinematic)
+                setTimeout(() => spawnAlerts(6), 1100);
+
+                // 4) attempt fails — show reconnection message overlay
+                setTimeout(() => {
+                    // remove thumb glitch and create the reconnection overlay
+                    videoThumb.classList.remove('glitch-frame');
+                    videoThumb.style.filter = '';
+                    showReconnectionOverlay();
+                }, 1800);
+            });
+
+            // spawn small red alert badges around screen
+            function spawnAlerts(n) {
+                const msgs = ["ACESSO NEGADO", "AUTH FAIL", "CONEXÃO INTERROMPIDA", "LOG: 0x3A9"];
+                for (let i = 0; i < n; i++) {
+                    const a = document.createElement('div');
+                    a.style.position = 'fixed';
+                    a.style.zIndex = 9999;
+                    a.style.left = (10 + Math.random() * 75) + '%';
+                    a.style.top = (10 + Math.random() * 75) + '%';
+                    a.style.background = 'rgba(204,23,23,0.95)';
+                    a.style.color = '#fff';
+                    a.style.padding = '8px 12px';
+                    a.style.borderRadius = '8px';
+                    a.style.fontFamily = 'Courier, monospace';
+                    a.style.fontWeight = '700';
+                    a.style.boxShadow = '0 6px 18px rgba(0,0,0,0.45)';
+                    a.style.transform = 'rotate(' + ((Math.random() - 0.5) * 12) + 'deg)';
+                    a.textContent = msgs[Math.floor(Math.random() * msgs.length)];
+                    document.body.appendChild(a);
+                    setTimeout(() => { a.style.transition = 'opacity 0.5s'; a.style.opacity = '0'; setTimeout(() => a.remove(), 500); }, 1500 + Math.random() * 900);
+                }
+            }
+
+            // show reconnection overlay (then crash)
+            function showReconnectionOverlay() {
+                const overlay = document.createElement('div');
+                overlay.className = 'full-overlay';
+                overlay.style.background = 'linear-gradient(0deg, rgba(0,0,0,0.92), rgba(0,0,0,0.92))';
+                overlay.style.zIndex = 10000;
+                overlay.innerHTML = '<div style="max-width:720px; color:var(--accent); font-family:Courier, monospace; text-align:center;"><h2 style="margin:0;">Conexão perdida com o servidor da JM Notícias...</h2><p style="margin-top:12px; color:#cfeedb">Tentando reconectar ao servidor seguro (192.168.15.92)</p><p style="margin-top:14px; color:#b7f0d2">Tentativa 1 de 3</p></div>';
+                document.body.appendChild(overlay);
+
+                // after short delay, change overlay text to indicate failure and then show final error
+                setTimeout(() => {
+                    overlay.innerHTML = '<div style="max-width:720px; color:#ffd6d6; font-family:Courier, monospace; text-align:center;"><h2 style="margin:0; color:var(--danger)">Falha de Reconexão</h2><p style="margin-top:12px; color:#ffb6b6">O servidor não respondeu. Iniciando fallback de segurança.</p></div>';
+                }, 1800);
+
+                // after another delay, show final error page (replace whole body)
+                setTimeout(() => {
+                    document.documentElement.scrollTop = 0;
+                    // replace page content with error screen
+                    document.body.innerHTML = `
+            <div class="error-screen" role="alert">
+              <h1>Erro 503 — Serviço Indisponível</h1>
+              <p>O acesso ao arquivo <strong>SURV-092</strong> foi bloqueado pelo servidor.</p>
+              <p style="color:#ffb6b6; margin-top:8px;">Código: AUTH-LOCK-503</p>
+              <div style="margin-top:18px; color:#bdbdbd; font-size:0.92rem; max-width:760px; text-align:center;">
+                Se você estiver autorizado, entre em contato com o administrador da rede. Esta sessão foi encerrada automaticamente.
+              </div>
+            </div>
+          `;
+                    // optionally, after a while, make the error "persistent" by adding tiny flicker
+                    addErrorFlicker();
+                }, 3800);
+            }
+
+            function addErrorFlicker() {
+                const style = document.createElement('style');
+                style.innerHTML = `
+          @keyframes flickerErr {
+            0% { opacity: 1; filter: none; }
+            40% { opacity: 0.86; filter: hue-rotate(5deg) contrast(1.1); }
+            70% { opacity: 0.92; filter: none; }
+            100% { opacity: 1; }
+          }
+          .error-screen { animation: flickerErr 3s infinite; }
+        `;
+                document.head.appendChild(style);
+            }
+
+            // popup download behavior
+            document.getElementById('downloadBtn').addEventListener('click', (e) => {
+                popupOverlay.style.display = 'flex';
+                setTimeout(() => popupOverlay.style.opacity = '1', 10);
+            });
+            popupClose.addEventListener('click', () => {
+                popupOverlay.style.opacity = '0';
+                setTimeout(() => popupOverlay.style.display = 'none', 240);
+            });
+
+            // allow Escape to close popup
+            document.addEventListener('keydown', (ev) => {
+                if (ev.key === 'Escape' && popupOverlay.style.display === 'flex') {
+                    popupClose.click();
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>

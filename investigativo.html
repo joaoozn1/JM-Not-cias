@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investigativo — JM Notícias</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .section-title {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 2rem;
+      color: #111;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .news-grid article {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .news-grid article:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .news-grid img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .news-grid h2 {
+      font-size: 1.2rem;
+      margin: 16px;
+    }
+
+    .news-grid p {
+      margin: 0 16px 20px;
+      color: #444;
+      font-size: 0.95rem;
+    }
+
+    .news-grid a {
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo-area">
+        <img src="jm-logo.png" alt="JM Notícias" class="logo">
+        <h1>JM Notícias</h1>
+      </div>
+      <nav>
+        <ul class="menu">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="#">Brasil</a></li>
+          <li><a href="#">Mundo</a></li>
+          <li><a href="investigativo.html" class="active">Investigativo</a></li>
+          <li><a href="#">Tecnologia</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <h2 class="section-title">Investigativo</h2>
+
+  <section class="news-grid">
+    <article>
+      <a href="article1.html">
+        <img
+          src="https://img.freepik.com/fotos-gratis/noite-de-outono-nebulosa_181624-10942.jpg?semt=ais_hybrid&w=740&q=80"
+          alt="Rua escura">
+        <h2>Bruxas Matitas: A lenda que assombra a Rua 15</h2>
+        <p>Moradores relatam aparições, rituais e símbolos antigos; polícia investiga 12 mortes sem explicação nos
+          últimos três anos.</p>
+      </a>
+    </article>
+
+    <!-- Espaço pra tu adicionar mais reportagens depois -->
+  </section>
+
+  <footer>
+    <p>© 2025 JM Notícias — Todos os direitos reservados.</p>
+  </footer>
+</body>
+
+</html>

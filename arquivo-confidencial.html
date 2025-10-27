@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Arquivos Confidenciais — JM Notícias</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ======== ESTILO CINEMATOGRÁFICO ======== */
+        body {
+            background: #050505;
+            color: #00ff99;
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* fundo animado */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(rgba(0, 255, 153, 0.03) 0 2px,
+                    rgba(0, 255, 153, 0.01) 2px 4px);
+            animation: scan 8s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes scan {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-100%);
+            }
+        }
+
+        main {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 80px auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border: 1px solid #00ff99;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 255, 153, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #00ffa2;
+            text-shadow: 0 0 6px #00ffa2;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            text-align: center;
+            color: #7cffd4;
+            margin-bottom: 40px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .typing {
+            border-right: 2px solid #00ff99;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 4s steps(40, end) forwards;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        /* seção de arquivos */
+        .section {
+            margin-top: 40px;
+        }
+
+        .section h2 {
+            color: #00ff99;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #00ff99;
+            padding-bottom: 6px;
+        }
+
+        .files,
+        .images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+            margin-top: 15px;
+        }
+
+        .file,
+        .img-card {
+            background: rgba(0, 255, 153, 0.05);
+            border: 1px solid rgba(0, 255, 153, 0.2);
+            padding: 14px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .file:hover,
+        .img-card:hover {
+            background: rgba(0, 255, 153, 0.1);
+            transform: scale(1.02);
+        }
+
+        .img-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        footer {
+            text-align: center;
+            color: #00ff99;
+            margin-top: 50px;
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* ALERTA DE SIGILO */
+        .alertaTopo {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 0, 0, 0.15);
+            color: #ff4444;
+            border: 1px solid #ff4444;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+            z-index: 99;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
+                opacity: 1;
+            }
+
+            50% {
+                box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+                opacity: 0.6;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ======= START: Intro Matrix + Glitch (cole logo após <body>) ======= -->
+    <style>
+        /* overlay full-screen */
+        #introOverlay {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* canvas ocupa toda a tela */
+        #matrixCanvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* central message while raining */
+        .intro-center {
+            position: relative;
+            z-index: 2;
+            color: #00ff99;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            pointer-events: none;
+            text-shadow: 0 0 8px rgba(0, 255, 153, 0.12);
+        }
+
+        /* small subtitle */
+        .intro-center h1 {
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .intro-center p {
+            font-size: 0.9rem;
+            color: rgba(0, 255, 153, 0.9);
+        }
+
+        /* GLITCH effect applied to the main content container (adds jitter + color shift) */
+        .glitch {
+            animation: glitch-frames 0.9s steps(3, end) 3;
+            /* run a few quick glitch frames */
+            filter: none;
+        }
+
+        @keyframes glitch-frames {
+            0% {
+                transform: translateX(0) skewX(0deg);
+                clip-path: inset(0 0 0 0);
+            }
+
+            10% {
+                transform: translateX(-6px) skewX(-1deg);
+                clip-path: inset(2% 0 2% 0);
+            }
+
+            20% {
+                transform: translateX(6px) skewX(1deg);
+                clip-path: inset(8% 0 6% 0);
+            }
+
+            30% {
+                transform: translateX(-8px) skewX(-2deg);
+                clip-path: inset(3% 0 1% 0);
+            }
+
+            40% {
+                transform: translateX(8px) skewX(2deg);
+                clip-path: inset(6% 0 10% 0);
+            }
+
+            50% {
+                transform: translateX(0) skewX(0deg);
+                clip-path: inset(0 0 0 0);
+            }
+
+            100% {
+                transform: translateX(0) skewX(0deg);
+                clip-path: inset(0 0 0 0);
+            }
+        }
+
+        /* fade reveal for main content */
+        .revealed {
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+
+        .revealed.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* subtle scanline overlay on top of content after reveal (optional) */
+        .scanlines {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(rgba(0, 255, 153, 0.02) 0.5px, transparent 0.5px);
+            z-index: 2;
+            mix-blend-mode: overlay;
+            opacity: 0.6;
+        }
+    </style>
+
+    <div id="introOverlay" aria-hidden="true">
+        <canvas id="matrixCanvas"></canvas>
+
+        <div class="intro-center" aria-hidden="true">
+            <h1>ACESSO RESTRITO</h1>
+            <p>Autenticando... / Iniciando sessão segura</p>
+        </div>
+    </div>
+
+    <script>
+        /* ===== CONFIG ===== */
+        const RAIN_DURATION_MS = 3000; // tempo da chuva de códigos (ajuste)
+        const GLITCH_DURATION_MS = 900; // duração do efeito glitch (ajuste)
+        const TOTAL_SEQUENCE_MS = RAIN_DURATION_MS + GLITCH_DURATION_MS + 300;
+
+        /* ===== MATRIX RAIN (canvas) ===== */
+        (function matrixRain() {
+            const canvas = document.getElementById('matrixCanvas');
+            const ctx = canvas.getContext('2d');
+
+            // ajustar tamanho
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            // chars para a chuva (pode misturar latim e símbolos)
+            const chars = '01<>/\\[]{}()*&^%$#@!abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            const fontSize = Math.max(12, Math.floor(window.innerWidth / 120)); // escala com largura
+            const columns = Math.floor(canvas.width / fontSize);
+            const drops = Array(columns).fill(0);
+
+            ctx.font = fontSize + 'px monospace';
+
+            let running = true;
+
+            function draw() {
+                if (!running) return;
+                // fundo semi-transparente para efeito de rastro
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.07)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = '#00ff99';
+                ctx.font = fontSize + 'px monospace';
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                    const x = i * fontSize;
+                    const y = drops[i] * fontSize;
+
+                    ctx.fillText(text, x, y);
+
+                    if (y > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+                requestAnimationFrame(draw);
+            }
+
+            draw();
+
+            // stop after configured duration, then trigger glitch+reveal
+            setTimeout(() => {
+                running = false;
+                // fade out the canvas by shrinking opacity quickly
+                canvas.style.transition = 'opacity 0.25s ease';
+                canvas.style.opacity = '0';
+                // also remove center text
+                const center = document.querySelector('.intro-center');
+                if (center) center.style.opacity = '0';
+
+                // small delay to let fade finish, then glitch reveal
+                setTimeout(startGlitchAndReveal, 260);
+            }, RAIN_DURATION_MS);
+        })();
+
+        /* ===== GLITCH + REVEAL SEQUENCE ===== */
+        function startGlitchAndReveal() {
+            // choose the element to glitch — prefer .confidencial-container or main
+            const mainEl = document.querySelector('.confidencial-container') || document.querySelector('main') || document.body;
+
+            // add scanlines overlay during reveal
+            const scan = document.createElement('div');
+            scan.className = 'scanlines';
+            document.body.appendChild(scan);
+
+            // perform quick glitch (add class that animates)
+            mainEl.classList.add('glitch');
+
+            // after glitch duration, remove overlay and reveal content
+            setTimeout(() => {
+                const overlay = document.getElementById('introOverlay');
+                if (overlay) {
+                    overlay.style.transition = 'opacity 0.6s ease';
+                    overlay.style.opacity = '0';
+                    // remove from DOM after fade
+                    setTimeout(() => overlay.remove(), 650);
+                }
+
+                // reveal main content (adds visible class)
+                mainEl.classList.add('revealed');
+                // force reflow then add visible to trigger transition
+                void mainEl.offsetWidth;
+                mainEl.classList.add('visible');
+
+                // remove glitch class after it completed to restore layout
+                setTimeout(() => mainEl.classList.remove('glitch'), GLITCH_DURATION_MS + 120);
+
+                // optionally fade out scanlines slowly
+                scan.style.transition = 'opacity 1.3s ease';
+                scan.style.opacity = '0';
+                setTimeout(() => scan.remove(), 1400);
+
+            }, GLITCH_DURATION_MS);
+        }
+
+        /* safety: allow skipping the intro with Escape key */
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const overlay = document.getElementById('introOverlay');
+                if (overlay) overlay.remove();
+                const mainEl = document.querySelector('.confidencial-container') || document.querySelector('main') || document.body;
+                mainEl.classList.add('revealed', 'visible');
+            }
+        });
+    </script>
+    <!-- ======= END: Intro Matrix + Glitch ======= -->
+
+    <div class="alertaTopo">CLASSIFICAÇÃO: SIGILOSO</div>
+
+    <main>
+        <h1 class="typing">ARQUIVOS CONFIDENCIAIS — JM Notícias</h1>
+        <p class="tagline">
+            Acesso concedido exclusivamente por autenticação de código.
+            Reprodução ou divulgação destes arquivos é expressamente proibida.
+        </p>
+
+        <section class="section">
+            <h2>📁 Documentos Sigilosos</h2>
+            <div class="files">
+                <div class="file">
+                    <h3>Relatório de Campo — Rua 15</h3>
+                    <p>Transcrição parcial de depoimentos colhidos entre 2023 e 2025.
+                        [Arquivo: <a href="doc-015.html" class="file-link">DOC-015.pdf</a>]</p>
+                </div>
+                <div class="file">
+                    <h3>Ofício Interno da Prefeitura</h3>
+                    <p>Documento classificado: “Proibição de coberturas não-autorizadas”.
+                        [Arquivo: <a href="pref-int-07.html" class="file-link">PREF-INT-07.pdf</a>]</p>
+                </div>
+                <div class="file">
+                    <h3>Relatório de Vigilância</h3>
+                    <p>Imagens térmicas e gravações de áudio coletadas durante a madrugada.
+                        [Arquivo: <a href="surv-092.html" class="file-link">SURV-092.mp4</a>]</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>🖼️ Imagens e Evidências</h2>
+            <div class="images">
+                <div class="img-card">
+                    <img src="https://static.ndmais.com.br/2022/11/copia-de-foto-frame-de-video-p-portal-nd-49.jpg"
+                        alt="Rua 15 à noite">
+                    <p>Registro 03: Rua 15 — câmera de segurança (21:47h).</p>
+                </div>
+                <div class="img-card">
+                    <img src="https://s2-ge.glbimg.com/x8SaT7yHRAT23NOIxGIDQzw-O8Q=/0x0:1900x1055/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2023/t/H/kFFw3dQKOatWGDMRur2Q/capela-brinco.jpg"
+                        alt="Floresta próxima">
+                    <p>Registro 07: Árvore marcada, proximidade da antiga capela.</p>
+                </div>
+                <div class="img-card">
+                    <img src="https://br.web.img3.acsta.net/newsv7/21/06/11/23/52/43908280.jpg"
+                        alt="Objetos encontrados">
+                    <p>Registro 09: Objetos apreendidos na casa abandonada.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>🗄️ Notas e Anotações Internas</h2>
+            <div class="files">
+                <div class="file">
+                    <h3>Nota Confidencial #33</h3>
+                    <p>“Entidade observada em 03/08/2025 — movimentos anômalos detectados.”</p>
+                </div>
+                <div class="file">
+                    <h3>Mensagem interceptada</h3>
+                    <p>“A mãe Matita virá.” (origem desconhecida, 01:17h)</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 JM Notícias — Departamento Investigativo</p>
+        </footer>
+    </main>
+
+    <script>
+        /* efeito de entrada cinematográfico */
+        window.addEventListener("load", () => {
+            document.body.style.opacity = "0";
+            setTimeout(() => { document.body.style.transition = "opacity 1.8s"; document.body.style.opacity = "1"; }, 200);
+        });
+    </script>
+</body>
+
+</html>

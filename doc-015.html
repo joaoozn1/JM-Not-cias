@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Campo — Rua 15 [DOC-015]</title>
+    <style>
+        body {
+            background: #0a0a0a;
+            font-family: 'Courier New', monospace;
+            color: #111;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* moldura do documento */
+        .doc-container {
+            background: #f4f1e8;
+            margin: 60px auto;
+            width: 90%;
+            max-width: 900px;
+            padding: 50px 60px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+            border: 1px solid #bfb9a3;
+            position: relative;
+            animation: fadeIn 1.2s ease;
+        }
+
+        /* efeito de papel antigo */
+        .doc-container::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.1));
+            mix-blend-mode: overlay;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* carimbo confidencial */
+        .stamp {
+            position: absolute;
+            top: 40px;
+            right: 60px;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: rgba(200, 0, 0, 0.2);
+            border: 4px solid rgba(200, 0, 0, 0.3);
+            padding: 8px 20px;
+            transform: rotate(-15deg);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            backdrop-filter: blur(2px);
+        }
+
+        /* título e meta */
+        h1 {
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+        }
+
+        .meta {
+            font-size: 0.9rem;
+            color: #444;
+            border-bottom: 1px solid #aaa;
+            padding-bottom: 6px;
+            margin-bottom: 20px;
+        }
+
+        section {
+            margin-top: 20px;
+        }
+
+        section h2 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #222;
+            border-left: 4px solid #c00;
+            padding-left: 8px;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .timestamp {
+            text-align: right;
+            font-size: 0.8rem;
+            color: #555;
+            margin-top: 30px;
+        }
+
+        /* glitch ruído no topo */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(rgba(255, 255, 255, 0.02) 0px,
+                    rgba(255, 255, 255, 0.02) 1px,
+                    transparent 2px);
+            pointer-events: none;
+            z-index: 10;
+            animation: flicker 1.8s infinite;
+        }
+
+        /* botão voltar */
+        .back {
+            display: inline-block;
+            background: #990000;
+            color: #fff;
+            padding: 8px 14px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 30px;
+            transition: background 0.2s ease;
+        }
+
+        .back:hover {
+            background: #c00;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes flicker {
+
+            0%,
+            100% {
+                opacity: 0.25;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scanline"></div>
+
+    <div class="doc-container">
+        <div class="stamp">CONFIDENCIAL</div>
+
+        <h1>Relatório de Campo — Rua 15</h1>
+        <div class="meta">Transcrição parcial de depoimentos colhidos entre 2023 e 2025<br>[Arquivo: DOC-015.pdf]</div>
+
+        <section>
+            <h2>Depoimento #01 — Morador Anônimo</h2>
+            <p>“As luzes aparecem sempre depois das duas da manhã. Três pontos brancos se movendo devagar, como se
+                alguém caminhasse com velas. Quando o vento sopra, ouve-se um canto... parece uma reza antiga.”</p>
+        </section>
+
+        <section>
+            <h2>Depoimento #02 — Agente Municipal (Identidade Ocultada)</h2>
+            <p>“Durante a vistoria, encontramos símbolos riscados com giz nas portas de três residências. O padrão se
+                repete em todos os casos ligados à Rua 15. O material foi recolhido, mas a análise foi interrompida por
+                ordem superior.”</p>
+        </section>
+
+        <section>
+            <h2>Depoimento #03 — Técnico de Energia</h2>
+            <p>“Cortamos a energia às 00h30, mas as luzes voltaram sozinhas, sem retorno de alimentação. O sistema acusa
+                zero volts. Isso não é tecnicamente possível.”</p>
+        </section>
+
+        <section>
+            <h2>Observações Finais</h2>
+            <p>Os registros indicam interferência elétrica e comportamental na área da Rua 15. A presença de fenômenos
+                visuais e auditivos não explicados sugere correlação direta com os eventos relatados no caso Matitas.
+            </p>
+            <p><strong>Recomendação:</strong> suspender novas entrevistas até liberação do Setor 7-A.</p>
+        </section>
+
+        <div class="timestamp">Última atualização: 14/10/2025 — 03:42h</div>
+        <a href="arquivo-confidencial.html" class="back">← Voltar</a>
+    </div>
+</body>
+
+</html>

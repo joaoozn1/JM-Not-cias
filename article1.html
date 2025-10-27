@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Bruxas Matitas: A lenda que assombra a Rua 15. — JM Notícias</title>
+    <link rel="stylesheet" href="style.css"> <!-- usa o mesmo CSS -->
+    <style>
+        /* pequenas regras extras só pra página de artigo */
+        .article-container {
+            width: 90%;
+            max-width: 900px;
+            margin: 60px auto;
+            background: #fff;
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .article-container h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .byline {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 18px;
+        }
+
+        .article-hero {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 18px;
+        }
+
+        .article-body p {
+            line-height: 1.7;
+            margin-bottom: 14px;
+            color: #222;
+            font-size: 1.03rem;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 14px;
+            background: #00b4d8;
+            color: #fff;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #0091b6;
+        }
+
+        .share-row {
+            margin-top: 12px;
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        /* ======== CSS PARA A SEÇÃO DE COMENTÁRIOS (cole no <style> ou style.css) ======== */
+
+        .comments-section {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            margin-bottom: 60px;
+        }
+
+        .comments-container {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            padding: 28px;
+            width: 90%;
+            max-width: 880px;
+            font-family: inherit;
+        }
+
+        .comments-container h2 {
+            font-size: 1.6rem;
+            color: #111;
+            margin: 0 0 18px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .comment {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 18px 0;
+            border-bottom: 1px solid #f3f3f3;
+        }
+
+        .comment:last-child {
+            border-bottom: none;
+        }
+
+        .comment img {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .comment strong {
+            display: inline-block;
+            font-size: 1rem;
+            color: #222;
+        }
+
+        .comment .time {
+            color: #777;
+            font-size: 0.9rem;
+            margin-left: 6px;
+        }
+
+        .comment p {
+            margin: 6px 0 8px 0;
+            color: #222;
+            line-height: 1.55;
+            max-width: 740px;
+        }
+
+        .comment .meta {
+            font-size: 0.86rem;
+            color: #555;
+        }
+
+        /* Removed / note styles */
+        .comment p.removed {
+            color: #8a8a8a;
+            font-style: italic;
+            background: #fafafa;
+            padding: 8px 10px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        /* Moderation note */
+        .comment p.note {
+            background: #fff6f6;
+            border-left: 3px solid #f1c0c0;
+            padding: 10px;
+            border-radius: 6px;
+            color: #6b2a2a;
+        }
+
+        /* Replies */
+        .replies {
+            margin-top: 12px;
+            padding-left: 72px;
+            border-left: 2px solid #f6f6f6;
+        }
+
+        .reply {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            align-items: flex-start;
+        }
+
+        .reply img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .reply strong {
+            font-size: 0.95rem;
+            color: #222;
+        }
+
+        .reply .time {
+            color: #777;
+            font-size: 0.82rem;
+            margin-left: 6px;
+        }
+
+        .reply p {
+            margin: 4px 0;
+            color: #333;
+            font-size: 0.96rem;
+        }
+
+        .reply .meta {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+
+        .new-comment-box {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+            padding: 18px 22px;
+            margin: 30px auto;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .new-comment-box h3 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #222;
+        }
+
+        .comment-input {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .comment-input textarea {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            resize: none;
+        }
+
+        .comment-btn {
+            margin-top: 10px;
+            background-color: #00b4d8;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .comment-btn:hover {
+            background-color: #0091b6;
+        }
+
+        .comment-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 10%;
+            object-fit: cover;
+        }
+
+        /* (se já tiver, apenas acrescente/ajuste) */
+        .popup-acesso {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 9998;
+        }
+
+        .popup-conteudo {
+            background: #fff;
+            color: #111;
+            padding: 26px 32px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .popup-conteudo input {
+            padding: 10px;
+            border: 1px solid #aaa;
+            border-radius: 8px;
+            width: 220px;
+            margin-top: 10px;
+        }
+
+        .popup-conteudo .botoes {
+            margin-top: 16px;
+        }
+
+        .popup-conteudo button {
+            background: #00b4d8;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 14px;
+            margin: 0 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .popup-conteudo button:hover {
+            background: #0091b6;
+        }
+
+        /* alertas vermelhos (negado) */
+        .alerta {
+            position: fixed;
+            background: #cc1717;
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 0 12px rgba(204, 23, 23, 0.5);
+            z-index: 9999;
+            animation: alertaAnim 0.28s ease, sumir 2.4s forwards;
+        }
+
+        .alerta.success {
+            background: #1aa85a;
+            box-shadow: 0 0 12px rgba(26, 168, 90, 0.4);
+        }
+
+        /* animações */
+        @keyframes alertaAnim {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes sumir {
+
+            0%,
+            80% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER igual ao do index.html -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo-area">
+                <img src="jm-logo.png" alt="Logo JM Notícias" class="logo">
+                <h1>JM Notícias</h1>
+            </div>
+            <nav>
+                <ul class="menu">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="#">Brasil</a></li>
+                    <li><a href="#">Mundo</a></li>
+                    <li><a href="#">Tecnologia</a></li>
+                    <li><a href="investigativo.html">Investigativo</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article class="article-container">
+            <h1>Bruxas Matitas: A lenda que assombra a Rua 15.</h1>
+            <div class="byline">Por Laura Fontes • 12 de outubro de 2025 • Investigativo</div>
+
+            <img class="article-hero"
+                src="https://img.freepik.com/fotos-gratis/noite-de-outono-nebulosa_181624-10942.jpg?semt=ais_hybrid&w=740&q=80"
+                alt="Rua escura e sombria.">
+
+            <div class="article-body">
+                <p>
+                    A Rua 15, no bairro Santa Aurora, voltou a ser notícia nesta semana após a divulgação de vídeos e
+                    depoimentos que relatam uma “procissão de véus” e outros fenômenos estranhos. Conhecidas localmente
+                    como <i>Bruxas Matitas</i>, as figuras fazem parte de uma lenda antiga — e, para alguns moradores,
+                    de um
+                    pesadelo real.
+                </p>
+                <h3>O que aconteceu?</h3>
+                <p></p>
+                <p>
+                    Desde 2022, ao menos <strong>12 ocorrências registradas</strong> no entorno da Rua 15 chamaram a
+                    atenção das
+                    autoridades: mortes sem causa aparente, desaparecimentos temporários e relatos de “luzes que
+                    caminham” pelas calçadas. A cada novo relato, cresce a menção às <i>Bruxas Matitas</i> — um grupo de
+                    mulheres de véu que, segundo o folclore local, realizariam um cortejo noturno para “recolher” quem
+                    perturba o silêncio.
+
+                </p>
+                <h3>“Elas passam de vela na mão” — relatos na linha de frente
+                </h3>
+                <p></p>
+                <p>
+                    “Eu vi as sombras. Tinham velas, elas não falavam nada. Só passavam devagar, como se fosse uma
+                    procissão antiga.” — <strong>Dona Zuleide Ramos</strong>, 68, moradora da Rua 15 há 40 anos.
+                <p></p>
+                “Meu sobrinho voltou diferente. Acordava de noite falando palavras que a gente nunca ouviu. No
+                quarto dele apareceu um desenho — várias mulheres com véus e uma frase em latim.” — <strong>Marcos
+                    Oliveira</strong>,
+                42.
+                <p></p>
+                No hospital municipal, um ex-funcionário que pediu para não ser identificado disse ter atendido um
+                homem que repetia: <i>“Matita mater venit”</i> (em tradução livre, “A mãe Matita virá”).
+
+                </p>
+
+                <p>
+
+                </p>
+
+                <h3>Pesquisa e história: quem são as Matitas?</h3>
+                <p></p>
+                <p>
+                    Segundo especialistas em folclore consultados para esta reportagem, o termo <i>Matita</i> (variação
+                    regional) está ligado a lendas sobre rezadeiras e curandeiras que atuaram em comunidades rurais nos
+                    séculos XIX e XX. Em Santa Aurora, há registros orais de um “cortejo das Irmãs do Véu” que teria
+                    sido proibido por um padre local no fim do século XIX. Desde então, diz a lenda, as mulheres teriam
+                    jurado voltar para punir quem profanasse seus rituais.
+                <p></p>
+                <strong>Prof. Carlos Menezes</strong>, historiador (aposentado), afirma:
+                <i>“Há sempre uma mistura de memória coletiva, tragédias reais e tentativa de explicar o inexplicável.
+                    As pessoas criam narrativas para dar sentido a perdas.”</i>
+
+                </p>
+
+                <h3>O caso que reacendeu tudo</h3>
+                <p>
+                </p>
+                <p>
+                    Dois anos atrás, o assassinato da família Nunes chocou a cidade: o patriarca, <strong>Alberto
+                        Nunes</strong>, 42,
+                    matou a esposa e o filho em circunstâncias que ainda geram dúvidas. Na parede da casa, símbolos
+                    riscados com faca e uma inscrição em latim foram encontrados. A investigação concluiu, oficialmente,
+                    que o autor tinha “instabilidade mental”. Para muitos moradores, porém, foi o início — ou a
+                    confirmação — da maldição.
+
+                </p>
+                <h3>Polícia e autoridades</h3>
+                <p></p>
+                <p>
+                    A Polícia Civil instaurou inquéritos para investigar mortes e desaparecimentos na Rua 15. Em nota
+                    oficial, a Delegacia de Santa Aurora informou:
+                <p></p>
+                <i>“As ocorrências serão investigadas com rigor. Não há, até o momento, evidências que comprovem
+                    atividade sobrenatural. Solicitamos a colaboração da população para que forneça qualquer informação
+                    que possa auxiliar nas investigações.”</i>
+                <P></P>
+                A prefeitura municipal, por sua vez, informou que fiscalizações e vistorias em instalações elétricas
+                e rede de gás foram ampliadas após denúncias de moradores.
+
+
+
+                </p>
+                <h3>O que dizem os “especialistas”</h3>
+                <p></p>
+                <p>
+                    <strong>Antropóloga Mariana Farias:</strong> <i>“Lendas funcionam como mecanismos de controle
+                        social;
+                        elas explicam
+                        tragédias e orientam comportamentos coletivos.”</i>
+                <p></p>
+                <strong>Psiquiatra Dr. Felipe Rocha:</strong> <i>“Episódios de histeria coletiva e alucinações em áreas
+                    com
+                    forte
+                    sugestão social não são incomuns. Ainda assim, os relatos merecem investigação.”</i>
+
+
+
+                </p>
+                <h3>Conclusão</h3>
+                <p></p>
+                <p>
+                    A Rua 15 permanece, por enquanto, um ponto de interrogação. Entre laudos inconclusivos, rumores e o
+                    medo de quem ainda mora lá, a antiga lenda das Bruxas Matitas segue viva — ora como explicação, ora
+                    como profecia. Enquanto a investigação oficial corre, os moradores prendem as janelas e acendem
+                    luzes. E quando a noite cai, muitos preferem não olhar pela janela.
+
+
+
+                </p>
+                <p class="share-row">Compartilhe: 🔗 Twitter | 🔗 Facebook | 🔗 WhatsApp</p>
+
+                <a class="back-btn" href="index.html">← Voltar para a página inicial</a>
+            </div>
+        </article>
+    </main>
+
+    <!-- BOTÃO (mantém o mesmo botão da página) -->
+    <div style="text-align:center; margin:40px 0;">
+        <button id="acessoBtn" class="back-btn">🔒 Consultar documentos e fontes</button>
+    </div>
+
+    <!-- POP-UP DE ACESSO -->
+    <div id="popupAcesso" class="popup-acesso" aria-hidden="true">
+        <div class="popup-conteudo" role="dialog" aria-modal="true">
+            <h2>🔐 Acesso restrito</h2>
+            <p>Insira seu código de acesso:</p>
+            <input type="password" id="codigoInput" placeholder="••••••••" autocomplete="off" />
+            <div class="botoes">
+                <button id="enviarCodigo">Enviar</button>
+                <button id="fecharPopup">Cancelar</button>
+            </div>
+            <p id="popupMsg" style="margin-top:10px;color:#7a2a2a;display:none;font-weight:600;"></p>
+        </div>
+    </div>
+
+    <script>
+        /* --- CONFIGURE AQUI O CÓDIGO SECRETO --- */
+        const secretCode = "jm-confidencial-158"; // <- mude para o código que quiser
+
+        /* elementos */
+        const popup = document.getElementById("popupAcesso");
+        const acessoBtn = document.getElementById("acessoBtn");
+        const fecharPopup = document.getElementById("fecharPopup");
+        const enviarCodigo = document.getElementById("enviarCodigo");
+        const codigoInput = document.getElementById("codigoInput");
+        const popupMsg = document.getElementById("popupMsg");
+
+        /* tentativas */
+        let attempts = 0;
+        let blockedUntil = 0; // timestamp
+
+        /* abrir/fechar */
+        acessoBtn.addEventListener("click", () => {
+            // se estiver bloqueado por tempo, mostra aviso rápido
+            const now = Date.now();
+            if (blockedUntil && now < blockedUntil) {
+                showTemporaryMessage("Acesso temporariamente bloqueado. Tente mais tarde.", 2200);
+                return;
+            }
+            codigoInput.value = "";
+            popup.style.display = "flex";
+            codigoInput.focus();
+            popup.setAttribute('aria-hidden', 'false');
+        });
+
+        fecharPopup.addEventListener("click", () => {
+            popup.style.display = "none";
+            popup.setAttribute('aria-hidden', 'true');
+        });
+
+        /* função que cria alertas vermelhos 'CÓDIGO NEGADO' */
+        function spawnDeniedAlerts(count = 10) {
+            const messages = ["CÓDIGO NEGADO", "AUTENTICAÇÃO FALHOU", "ACESSO NEGADO", "REGISTRO: TENTATIVA INVÁLIDA"];
+            for (let i = 0; i < count; i++) {
+                const alerta = document.createElement("div");
+                alerta.classList.add("alerta");
+                alerta.innerText = messages[Math.floor(Math.random() * messages.length)];
+                alerta.style.top = (10 + Math.random() * 75) + "%";
+                alerta.style.left = (5 + Math.random() * 75) + "%";
+                alerta.style.transform = `rotate(${(Math.random() - 0.5) * 10}deg)`;
+                document.body.appendChild(alerta);
+                setTimeout(() => alerta.remove(), 2200 + Math.random() * 1400);
+            }
+        }
+
+        /* mensagem temporária pequena */
+        function showTemporaryMessage(text, ms = 1800) {
+            popupMsg.style.display = "block";
+            popupMsg.innerText = text;
+            setTimeout(() => {
+                popupMsg.style.display = "none";
+            }, ms);
+        }
+
+        /* evento enviar */
+        enviarCodigo.addEventListener("click", () => {
+            const now = Date.now();
+            if (blockedUntil && now < blockedUntil) {
+                showTemporaryMessage("Acesso bloqueado temporariamente. Aguarde.", 2200);
+                popup.style.display = "none";
+                return;
+            }
+
+            const val = (codigoInput.value || "").trim();
+
+            // validação simples
+            if (!val) {
+                showTemporaryMessage("Digite o código antes de enviar.", 1500);
+                return;
+            }
+
+            if (val === secretCode) {
+                // sucesso: redireciona para arquivo-confidencial.html
+                // efeito dramático: pequena animação de "liberado" e depois redirect
+                popup.style.display = "none";
+                const successBadge = document.createElement("div");
+                successBadge.className = "alerta success";
+                successBadge.innerText = "CÓDIGO ACEITO — REDIRECIONANDO";
+                document.body.appendChild(successBadge);
+                setTimeout(() => {
+                    window.location.href = "arquivo-confidencial.html";
+                }, 900);
+                return;
+            }
+
+            // ERRO: código inválido
+            attempts++;
+            spawnDeniedAlerts(8 + Math.floor(Math.random() * 5));
+            showTemporaryMessage("CÓDIGO NEGADO", 1600);
+
+            // se usuário errou várias vezes, bloqueia por um tempo (ex.: 20s)
+            if (attempts >= 4) {
+                blockedUntil = Date.now() + 20000; // bloqueia por 20s
+                attempts = 0; // reinicia contador depois do bloqueio
+                showTemporaryMessage("Múltiplas tentativas — acesso temporariamente bloqueado.", 2200);
+            }
+
+            popup.style.display = "none";
+        });
+
+        /* acessibilidade: Enter no input envia */
+        codigoInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                enviarCodigo.click();
+            }
+        });
+    </script>
+
+
+    <!-- Campo para novo comentário -->
+    <div class="new-comment-box">
+        <h3>Escreva um comentário</h3>
+        <div class="comment-input">
+            <img src="joao-foto.jpg" alt="Seu avatar" class="comment-avatar">
+            <textarea placeholder="Digite seu comentário..." rows="3"></textarea>
+        </div>
+        <button class="comment-btn">Publicar</button>
+    </div>
+
+
+
+    <!-- ======== SEÇÃO DE COMENTÁRIOS — 18 ITENS ======== -->
+    <section class="comments-section">
+        <div class="comments-container">
+
+            <h2>Comentários (18)</h2>
+
+            <!-- 1 -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/women/14.jpg" alt="perfil">
+                <div>
+                    <strong>Mariana S.</strong> <span class="time">• há 1 hora</span>
+                    <p>Li essa matéria ontem e achei que tinham tirado do ar. Parabéns à JM Notícias por manter online.
+                        Nem todos têm coragem.</p>
+                    <div class="meta">👍 62 | 💬 5 respostas</div>
+
+                    <div class="replies">
+                        <div class="reply">
+                            <img src="https://randomuser.me/api/portraits/men/31.jpg" alt="perfil">
+                            <div>
+                                <strong>Vinícius R.</strong> <span class="time">• há 50 min</span>
+                                <p>Também vi que o link saiu por algumas horas. Acho que tentaram remover.</p>
+                                <div class="meta">👍 17</div>
+                            </div>
+                        </div>
+                        <div class="reply">
+                            <img src="https://randomuser.me/api/portraits/women/47.jpg" alt="perfil">
+                            <div>
+                                <strong>Cláudia M.</strong> <span class="time">• há 35 min</span>
+                                <p>Equipe da redação relatou ameaças. Fiquem atentos.</p>
+                                <div class="meta">👍 24</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2 -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/men/25.jpg" alt="perfil">
+                <div>
+                    <strong>Henrique L.</strong> <span class="time">• há 3 horas</span>
+                    <p>Sou de Santa Aurora. Há algo na Rua 15 — postes que acendem sozinhos, vultos. A prefeitura faz
+                        vista grossa.</p>
+                    <div class="meta">👍 48 | 💬 2 respostas</div>
+                </div>
+            </div>
+
+            <!-- 3 -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/women/21.jpg" alt="perfil">
+                <div>
+                    <strong>Lívia Costa</strong> <span class="time">• há 6 horas</span>
+                    <p>Meu primo trabalhou na polícia: relatórios sumiram dos arquivos. Pediram "revisão" com novas
+                        datas.</p>
+                    <div class="meta">👍 91 | 💬 3 respostas</div>
+
+                    <div class="replies">
+                        <div class="reply">
+                            <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="perfil">
+                            <div>
+                                <strong>João V.</strong> <span class="time">• há 5 horas</span>
+                                <p>Tenho contato que confirmou. Documentos foram alterados.</p>
+                                <div class="meta">👍 34</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4 (removido) -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="perfil">
+                <div>
+                    <strong>Rafael Gomes</strong> <span class="time">• há 8 horas</span>
+                    <p class="removed">[Comentário removido por violar as diretrizes de publicação]</p>
+                    <div class="meta">👍 12 | 💬 0 respostas</div>
+                </div>
+            </div>
+
+            <!-- 5 -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/women/8.jpg" alt="perfil">
+                <div>
+                    <strong>Amanda P.</strong> <span class="time">• há 12 horas</span>
+                    <p>A matéria está sendo compartilhada em grupos privados. Sumiram outras páginas que publicaram
+                        antes.</p>
+                    <div class="meta">👍 73 | 💬 4 respostas</div>
+                </div>
+            </div>
+
+            <!-- 6 -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="perfil">
+                <div>
+                    <strong>Felipe R.</strong> <span class="time">• há 1 dia</span>
+                    <p>Meu comentário anterior foi apagado. Só digo: as luzes existem. Não é histeria.</p>
+                    <div class="meta">👍 39 | 💬 1 resposta</div>
+
+                    <div class="replies">
+                        <div class="reply">
+                            <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="perfil">
+                            <div>
+                                <strong>Bruna C.</strong> <span class="time">• há 23 horas</span>
+                                <p>Você mora perto? Já reportei ao jornal local e ignoraram.</p>
+                                <div class="meta">👍 8</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7 -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/women/19.jpg" alt="perfil">
+                <div>
+                    <strong>Cláudia M.</strong> <span class="time">• há 1 dia</span>
+                    <p>Trabalho em portal grande. Essa pauta foi bloqueada internamente como "assunto sensível".</p>
+                    <div class="meta">👍 80 | 💬 2 respostas</div>
+                </div>
+            </div>
+
+            <!-- 8 -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="perfil">
+                <div>
+                    <strong>Paulo H.</strong> <span class="time">• há 2 dias</span>
+                    <p>Vi essa reportagem sumir das redes ontem. Agora só está aqui. Salvem o link se puderem.</p>
+                    <div class="meta">👍 56 | 💬 0 respostas</div>
+                </div>
+            </div>
+
+            <!-- 9 -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/women/40.jpg" alt="perfil">
+                <div>
+                    <strong>Sônia L.</strong> <span class="time">• há 3 dias</span>
+                    <p>Pode parecer lenda, mas o medo é real. Quem tenta investigar... some de vista.</p>
+                    <div class="meta">👍 102 | 💬 7 respostas</div>
+
+                    <div class="replies">
+                        <div class="reply">
+                            <img src="https://randomuser.me/api/portraits/men/60.jpg" alt="perfil">
+                            <div>
+                                <strong>Marcelo D.</strong> <span class="time">• há 2 dias</span>
+                                <p>Minha ex-namorada sumiu depois que começou a gravar sons em casa. Não lembro de ter
+                                    contado isso antes...</p>
+                                <div class="meta">👍 22</div>
+                            </div>
+                        </div>
+                        <div class="reply">
+                            <img src="https://randomuser.me/api/portraits/women/56.jpg" alt="perfil">
+                            <div>
+                                <strong>Patrícia S.</strong> <span class="time">• há 2 dias</span>
+                                <p>Isso tá ficando sério. Alguém já chamou a ouvidoria estadual?</p>
+                                <div class="meta">👍 14</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10 -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="perfil">
+                <div>
+                    <strong>Paulo C.</strong> <span class="time">• há 1 dia</span>
+                    <p>Já vi essa história num fórum antigo. A matéria está bem escrita, mas cuidado com quem
+                        compartilha demais.</p>
+                    <div class="meta">👍 9 | 💬 0 respostas</div>
+                </div>
+            </div>
+
+            <!-- 11 (removido parcialmente) -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="perfil">
+                <div>
+                    <strong>Rita O.</strong> <span class="time">• há 4 dias</span>
+                    <p class="removed">[Comentário ocultado pelo moderador — conteúdo sensível]</p>
+                    <div class="meta">👍 5 | 💬 0 respostas</div>
+                </div>
+            </div>
+
+            <!-- 12 -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/men/18.jpg" alt="perfil">
+                <div>
+                    <strong>André M.</strong> <span class="time">• há 6 horas</span>
+                    <p>Vi um carro da prefeitura passando toda noite com faróis apagados. Não é normal.</p>
+                    <div class="meta">👍 41 | 💬 1 resposta</div>
+
+                    <div class="replies">
+                        <div class="reply">
+                            <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="perfil">
+                            <div>
+                                <strong>Camila T.</strong> <span class="time">• há 5 horas</span>
+                                <p>Confere — tive que desviar do carro a pé outro dia, estava tudo muito estranho.</p>
+                                <div class="meta">👍 11</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 13 -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/men/66.jpg" alt="perfil">
+                <div>
+                    <strong>Gustavo P.</strong> <span class="time">• há 2 dias</span>
+                    <p>Jornalismo precisa de proteção. Força pra quem investiga isso.</p>
+                    <div class="meta">👍 67 | 💬 3 respostas</div>
+                </div>
+            </div>
+
+            <!-- 14 -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/women/26.jpg" alt="perfil">
+                <div>
+                    <strong>Helena R.</strong> <span class="time">• há 12 horas</span>
+                    <p>Alguém conseguiu baixar os vídeos que circulam? Quero ver as evidências.</p>
+                    <div class="meta">👍 29 | 💬 2 respostas</div>
+                </div>
+            </div>
+
+            <!-- 15 -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/men/71.jpg" alt="perfil">
+                <div>
+                    <strong>Otávio S.</strong> <span class="time">• há 3 dias</span>
+                    <p>Devia ter mais investigações independentes. A cidade precisa saber a verdade.</p>
+                    <div class="meta">👍 21 | 💬 0 respostas</div>
+                </div>
+            </div>
+
+            <!-- 16 (censurado / aviso) -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/women/70.jpg" alt="perfil">
+                <div>
+                    <strong>Moderação</strong> <span class="time">• há 2 horas</span>
+                    <p class="note">⚠️ Observação: alguns conteúdos nesta thread foram alterados após análise. Consultas
+                        oficiais em andamento.</p>
+                    <div class="meta">🔒</div>
+                </div>
+            </div>
+
+            <!-- 17 -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="perfil">
+                <div>
+                    <strong>Carlos E.</strong> <span class="time">• há 5 dias</span>
+                    <p>Minha avó dizia que a "procissão" voltava a cada vez que a cidade esquecia. Isso me dá arrepios.
+                    </p>
+                    <div class="meta">👍 33 | 💬 1 resposta</div>
+
+                    <div class="replies">
+                        <div class="reply">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="perfil">
+                            <div>
+                                <strong>Érica M.</strong> <span class="time">• há 4 dias</span>
+                                <p>Histórias assim sempre têm um fundo — seja memória ou algo mais sinistro.</p>
+                                <div class="meta">👍 7</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 18 -->
+            <div class="comment">
+                <img src="https://randomuser.me/api/portraits/women/52.jpg" alt="perfil">
+                <div>
+                    <strong>Bianca N.</strong> <span class="time">• há 6 dias</span>
+                    <p>Se isso for encobrimento, alguém precisa responsabilizar. Jornalismo corajoso salva cidade.</p>
+                    <div class="meta">👍 44 | 💬 2 respostas</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    </article>
+    </main>
+
+    <footer>
+        <p>© 2025 JM Notícias — Todos os direitos reservados.</p>
+    </footer>
+</body>
+
+</html>

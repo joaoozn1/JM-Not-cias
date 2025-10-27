@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Ofício Interno — PREF-INT-07</title>
+    <style>
+        :root {
+            --paper: #f7f5ee;
+            --ink: #111;
+            --accent: #8b0000;
+        }
+
+        body {
+            background: #0b0b0b;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: var(--ink);
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            max-width: 920px;
+            margin: 60px auto;
+            padding: 28px;
+        }
+
+        .doc {
+            background: var(--paper);
+            padding: 42px;
+            border-radius: 8px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        /* timbre prefeitura */
+        .timbre {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .timbre .left {
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .timbre .right small {
+            display: block;
+            color: #555;
+            font-size: 0.85rem;
+        }
+
+        h1 {
+            margin: 6px 0 4px 0;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .meta {
+            color: #333;
+            font-size: 0.95rem;
+            margin-bottom: 18px;
+        }
+
+        .stamp {
+            position: absolute;
+            top: 36px;
+            right: 36px;
+            border: 3px solid rgba(139, 0, 0, 0.2);
+            color: rgba(139, 0, 0, 0.18);
+            padding: 6px 12px;
+            font-weight: 800;
+            transform: rotate(-12deg);
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+        }
+
+        section {
+            margin-top: 12px;
+            line-height: 1.6;
+            color: #111;
+        }
+
+        .redacted {
+            display: inline-block;
+            background: #000;
+            color: transparent;
+            border-radius: 3px;
+            padding: 0 8px;
+            margin: 0 4px;
+            vertical-align: middle;
+        }
+
+        .signature {
+            margin-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sig-left {
+            font-style: italic;
+            color: #444;
+        }
+
+        .sig-right {
+            text-align: right;
+        }
+
+        .btn-row {
+            margin-top: 22px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn.secondary {
+            background: #666;
+        }
+
+        .note {
+            margin-top: 12px;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        /* popup */
+        .popup {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+        }
+
+        .popup .card {
+            background: #fff;
+            padding: 20px 24px;
+            border-radius: 8px;
+            text-align: center;
+            width: 90%;
+            max-width: 420px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .popup .card h3 {
+            margin: 0 0 8px 0;
+            color: #222;
+        }
+
+        .popup .card p {
+            color: #444;
+            margin-bottom: 12px;
+        }
+
+        .popup .card button {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        /* pixel/noise scan overlay for cinematic feel */
+        .scan-overlay {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+            mix-blend-mode: multiply;
+            opacity: 0.35;
+        }
+
+        @media (max-width:600px) {
+            .doc {
+                padding: 22px;
+            }
+
+            .stamp {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="doc" role="document">
+            <div class="timbre">
+                <div class="left">
+                    Prefeitura Municipal de São Martinho da Serra<br>
+                    Secretaria de Assuntos Internos
+                </div>
+                <div class="right">
+                    <small>Ofício Interno Nº: PREF-INT-07</small>
+                    <small>Classificação: Restrito • 10/10/2025</small>
+                </div>
+            </div>
+
+            <div class="stamp">CLASSIFICADO</div>
+
+            <h1>Ofício Interno — PREF-INT-07</h1>
+
+            <div class="meta">Assunto: Proibição de coberturas não-autorizadas<br>[Arquivo: PREF-INT-07.pdf]</div>
+
+            <section>
+                <p>Aos setores responsáveis,</p>
+
+                <p>Considerando os recentes episódios ocorridos na área conhecida como <strong>Rua 15</strong>, e tendo
+                    em vista a necessidade de controle de informação e segurança pública, determino a seguinte medida
+                    provisória:</p>
+
+                <p><strong>Item 1 —</strong> Fica proibida a realização de coberturas jornalísticas e transmissões
+                    não-autorizadas no perímetro delimitado pela Coordenação de Segurança Municipal, sem prévia
+                    autorização formal do Gabinete do Prefeito.</p>
+
+                <p><strong>Item 2 —</strong> Equipes de fiscalização estão autorizadas a apreender equipamentos de
+                    transmissão e preservar áreas que caracterizem risco à ordem pública.</p>
+
+                <p>Motivos e justificativas foram avaliados em reunião de gabinete, porém partes do documento de pauta
+                    foram consideradas sensíveis e encontramse redigidas a seguir:</p>
+
+                <p>
+                    “Deliberação interna: <span class="redacted">██████████████</span> — ação coordenada com <span
+                        class="redacted">████████████</span> para remoção de registros públicos que possam comprometer
+                    investigações em curso.”
+                </p>
+
+                <p>Solicita-se que todas as secretarias envolvidas mantenham sigilo absoluto sobre procedimentos e
+                    evidências levantadas até nova ordem.</p>
+            </section>
+
+            <div class="signature">
+                <div class="sig-left">
+                    Assinado eletronicamente por:<br>
+                    <strong>Dr. F. L. Andrade</strong><br>
+                    Chefe da Secretaria de Assuntos Internos
+                </div>
+                <div class="sig-right">
+                    <div>Gabinete do Prefeito</div>
+                    <div class="date">10/10/2025</div>
+                </div>
+            </div>
+
+            <div class="btn-row">
+                <button id="downloadBtn" class="btn">Baixar (restrito)</button>
+                <a href="arquivo-confidencial.html" class="btn secondary">← Voltar</a>
+            </div>
+
+            <div class="note">Observação: Este documento é cópia interna e contém trechos classificados.</div>
+        </div>
+    </div>
+
+    <div class="popup" id="popup">
+        <div class="card">
+            <h3>Acesso Negado</h3>
+            <p>Você não possui permissão para baixar este arquivo.</p>
+            <button id="closePopup">Entendi</button>
+        </div>
+    </div>
+
+    <div class="scan-overlay" aria-hidden="true"></div>
+
+    <script>
+        // comportamento do botão "Baixar (restrito)"
+        document.getElementById('downloadBtn').addEventListener('click', function () {
+            // mostra popup estilizado
+            const popup = document.getElementById('popup');
+            popup.style.display = 'flex';
+        });
+
+        document.getElementById('closePopup').addEventListener('click', function () {
+            document.getElementById('popup').style.display = 'none';
+        });
+
+        // tecla Esc fecha popup
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('popup').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>
